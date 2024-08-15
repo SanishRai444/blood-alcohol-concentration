@@ -32,7 +32,7 @@
       <input type="number" id="drinks" name="drinks" placeholder="Enter number of drinks" required>
 
       <label for="alcohol_content">Alcohol Content per Drink (grams):</label>
-      <input type="number" id="alcohol_content" name="alcohol_content" placeholder="Enter alcohol content per drink"
+      <input type="float" id="alcohol_content" name="alcohol_content" placeholder="Enter alcohol content per drink"
         required>
 
       <label for="time_elapsed">Time Elapsed (hours):</label>
