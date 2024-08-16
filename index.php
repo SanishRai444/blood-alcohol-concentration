@@ -43,8 +43,19 @@
     </form>
 
     <div class="output-wrapper">
-      <div> Your Blood Concentration is: <span>0.08%</span></div>
-      <div> Safe to drive </div>
+      <?php
+      if (isset($_GET['bac_result']) && isset($_GET['status'])) {
+
+        $BAC = $_GET['bac_result'];
+        $status = $_GET['status'];
+
+        echo "<div> Your Blood Concentration is: <span>" . htmlspecialchars($BAC) . "%</span></div>";
+        echo "<div>" . htmlspecialchars($status) . "</div>";
+      } else {
+        echo "<div> Your Blood Concentration is: <span>0%</span></div>";
+        echo "<div> Safe to drive </div>";
+      }
+      ?>
     </div>
   </div>
 </body>

@@ -16,23 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $Gender = $_POST["gender"];
 
 
-    $TotalAlcoholconsumed = $Alcoholperdrink * $Drinks_no;
-
-    if ($Weightunit == "kg") {
-        $Weight = 2.20462 * $Weight;
-    }
-
-
-    if ($Gender == "male") {
-        $BAC =  (($TotalAlcoholconsumed * 5.14) / ($Weight * Mcons)) - (0.015 * $Timelapsed);
-    } else {
-
-        $BAC = (($TotalAlcoholconsumed * 5.14) / ($Weight * Fcons)) - (0.015 * $Timelapsed);
-    }
+    $BAC = Calculate_bac($Gender == "male" ? Mcons : Fcons, $Alcoholperdrink * $Drinks_no, $Weight, $Timelapsed, $Weightunit);
 
     $result = $BAC < 0.08 ? "Safe to drive" : "Not safe to drive";
 
-    echo "Blood concentration is " . number_format($BAC, 2) . " and its " . $result;
-
+    header("Location: index.php?bac_result=" . number_format($BAC, 2) . "&status=" . urlencode($result));
     die();
+}
+
+function Calculate_bac($cons, $Alcoholconsumed, $weight, $time, $unit)
+{
+    if ($unit == "kg") {
+        $weight = 2.20462 * $weight;
+    }
+    return (($Alcoholconsumed * 5.14) / ($weight * $cons)) - (0.015 * $time);
 }
